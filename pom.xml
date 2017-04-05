@@ -54,7 +54,11 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!-- 引入Spring-Test框架 -->
+        <!--
+            引入Spring-Test框架
+             从Spring 3.2开始，Spring-Test作为一个独立的项目而存在，而且放在Github上，现在，它已经被列入core Test框架，是它
+             的一个子模块了，位置：${@link https://github.com/spring-projects/spring-framework/tree/master/spring-test}
+        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>

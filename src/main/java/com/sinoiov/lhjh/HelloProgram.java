@@ -16,8 +16,13 @@ public class HelloProgram {
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
         // IoC容器中，其作用是作为第三种角色，它的任务是创建 beans.xml文件中声明的 Java Bean 对象。
+        // helloWorldService这个字符串作为bean id，已经在beans.xml中声明了，它对应了一个Java Bean，所以能够实例化
         HelloWorldService service = context.getBean("helloWorldService", HelloWorldService.class);
+
+        // 得到被注入的成员变量的引用
         HelloWorld helloWorld = service.getHelloWorld();
+
+        // 调用创建出来的对象的方法
         helloWorld.sayHello();
     }
 }

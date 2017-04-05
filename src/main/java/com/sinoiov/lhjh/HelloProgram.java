@@ -2,6 +2,7 @@ package com.sinoiov.lhjh;
 
 import com.sinoiov.lhjh.service.HelloWorld;
 import com.sinoiov.lhjh.service.HelloWorldService;
+import com.sinoiov.lhjh.service.Knight;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

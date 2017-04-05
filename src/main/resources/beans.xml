@@ -26,17 +26,4 @@
           class="com.sinoiov.lhjh.service.HelloWorldService">
         <property name="helloWorld" ref="springHelloWorld"/>
     </bean>
-
-    <!-- 下面是一个更新的注入用法 -->
-
-    <!--
-        在这里， com.sinoiov.lhjh.impl.BraveKnight和com.sinoiov.lhjh.impl.SlayDragonQuest被声明为Spring中的Bean
-        对BraveKnight，在构造时，传入参数quest，quest的定义也很明确，但是它在构建时，使用了Spring表达式语言，将System.out传入
-    -->
-    <bean id="knight" class="com.sinoiov.lhjh.impl.BraveKnight">
-        <constructor-arg ref="quest"/>
-    </bean>
-    <bean id="quest" class="com.sinoiov.lhjh.impl.SlayDragonQuest">
-        <constructor-arg ref="#{T(System).out}"/>
-    </bean>
 </beans>

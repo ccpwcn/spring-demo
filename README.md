@@ -16,6 +16,7 @@
 
 ## 2. Spring构成
 这是Spring的构成示意图：
+
 ![https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%E6%9E%84%E6%88%90.png](https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%E6%9E%84%E6%88%90.png)
 
 ### 2.1 Spring核心容器

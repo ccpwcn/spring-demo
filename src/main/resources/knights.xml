@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!--
         在这里， com.sinoiov.lhjh.impl.BraveKnight和com.sinoiov.lhjh.impl.SlayDragonQuest被声明为Spring中的Bean
         对BraveKnight，在构造时，传入参数quest，quest的定义也很明确，但是它在构建时，使用了Spring表达式语言，将System.out传入
@@ -13,4 +14,33 @@
     <bean id="quest" class="com.sinoiov.lhjh.impl.SlayDragonQuest">
         <constructor-arg value="#{T(System).out}"/>
     </bean>
+
+    <!-- 声明游吟诗人 -->
+    <bean id="minstrel" class="com.sinoiov.lhjh.impl.Minstrel">
+        <constructor-arg value="#{T(System).out}"/>
+    </bean>
+    <!--
+        按照下面的这种方式进行配置，那么实际上在Spring上下文中，Minstrel已经变成一个切面了
+        通过这样的配置，Minstrel已经可以应用到BraveKnight类中了，这种情况下，BraveKnight不需要显式的调用它，也不需要关注它
+        的具体存在，这么做有巨大的优势，具体的我们可以看这个类：{@link com.sinoiov.lhjh.impl.BraveKnightTraditional}。
+        简单的讲：通过这种做法，BraveKnight只需要做自己的探险任务就可以了，当需求是让游吟诗人去传唱他的探险行为的时候，我们
+        通过配置文件给它配置一个切面，他的行为就会被传唱，当我们需要将他的探险行为记录到数据库的时候，我们通过配置文件为他配置
+        一个连接数据库保存数据的类，比如说是SaveToDB，就可以实现这些不同的需求变化了。需要强调的是：对于BraveKnight来说，他
+        只需要专心的做自己的探险任务了，他不必关注自己的行为到底要被传唱还是要被记录日志还是要被存入数据库甚至要被导出到Excel
+        表格。。。因为这样的需求无穷无尽，太复杂了，最终的结果只能是BraveKnight无法应对。
+        最后一点：使用这种方法，需要在POM中加上Spring框架的spring-aspects这个组件的引用，否则会出现
+        java.lang.NoClassDefFoundError: org/aspectj/weaver/reflect/ReflectionWorld$ReflectionWorldException
+        的错误。
+    -->
+    <aop:config>
+        <!-- 引用在前面声明的游吟诗人这个Bean -->
+        <aop:aspect ref="minstrel">
+            <!-- 定义切点，embark就是一个切点ID，它紧接着会在后面被引用，expression表达式语法采用的是AspectJ的切点表达式语言 -->
+            <aop:pointcut id="embark" expression="execution(* *.embarkOnQuest(..))"/>
+            <!-- 声明前置通知，也就是表明singBeforeQuest方法在embarkOnQuest方法执行之前调用 -->
+            <aop:before pointcut-ref="embark" method="singBeforeQuest"/>
+            <!-- 声明后置通知，也就是表明singAfterQuest方法在embarkOnQuest方法执行之后调用 -->
+            <aop:after pointcut-ref="embark" method="singAfterQuest"/>
+        </aop:aspect>
+    </aop:config>
 </beans>

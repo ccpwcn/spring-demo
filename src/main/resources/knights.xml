@@ -28,9 +28,8 @@
         一个连接数据库保存数据的类，比如说是SaveToDB，就可以实现这些不同的需求变化了。需要强调的是：对于BraveKnight来说，他
         只需要专心的做自己的探险任务了，他不必关注自己的行为到底要被传唱还是要被记录日志还是要被存入数据库甚至要被导出到Excel
         表格。。。因为这样的需求无穷无尽，太复杂了，最终的结果只能是BraveKnight无法应对。
-        最后一点：使用这种方法，需要在POM中加上Spring框架的spring-aspects这个组件的引用，否则会出现
-        java.lang.NoClassDefFoundError: org/aspectj/weaver/reflect/ReflectionWorld$ReflectionWorldException
-        的错误。
+        最后一点：使用这种方法，需要在POM中加上Spring框架的spring-aspects这个Spring组件的依赖项引用，否则构建成WAR包再运行时
+        会出现java.lang.NoClassDefFoundError: org/aspectj/weaver/reflect/ReflectionWorld$ReflectionWorldException错误。
     -->
     <aop:config>
         <!-- 引用在前面声明的游吟诗人这个Bean -->

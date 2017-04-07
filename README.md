@@ -14,12 +14,17 @@
 ### 1.4 使用模板消息样板式代码
 主要是避免重复的代码，本例中我们使用的是通过JDBC访问数据库这样的示例。
 
-## 2. Spring构成
+## 2. 关于Spring Bean
+这是Spring Bean的生命周期图示：
+
+![https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png](https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
+
+## 3. Spring构成
 这是Spring的构成示意图：
 
 ![https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%E6%9E%84%E6%88%90.png](https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%E6%9E%84%E6%88%90.png)
 
-### 2.1 Spring核心容器
+### 3.1 Spring核心容器
 容器是Spring最核心的部分，它管理着Spring中Bean的创建、配置和管理，这个模块中包含了Spring Bean工厂，它为Spring
 提供了DI的功能。基于Bean工厂，我们还会发现有多种Spring应用上下文的实现，每一种都提供了不同的配置Spring的实现方式。
 最主要的，是通过配置类的方式、通过配置文件XML的方式、通过文件系统指定文件的方式。
@@ -29,14 +34,14 @@
 Spring核心容器是所有Spring模块的基础，也就是说，其他的所有Spring模块都是构建于核心容器模块之上的，当我们配置应用
 时，其实我们隐式的使用了核心模块中的这些类。
 
-## 2.2 AOP模块
+## 3.2 AOP模块
 在Spring的AOP模块中，提供了面向切面编程的丰富支持，这个模块是在Spring中开发切面的基础，与DI一样，AOP有助于应用
 对象解藕。它可以将遍布于系统中各个部位的关注点（例如安全、日志、、统计、事务等）从应用对象中解藕出来。
 
 解藕之后的效果是：应用对象中需要关注自己的业务即可，不需要关注自己什么时间要提交统计数据、什么时间要记录日志、什么
 时间要处理安全问题、什么时间要管理事务等等等等。
 
-## 2.3 数据访问与集成
+## 3.3 数据访问与集成
 使用JDBC会产生大量的样板式代码，例如获得数据库连接、创建语句、执行语句、处理结果集、关闭数据库连接等。Spring拥有
 JDBC和DAO（Data Access Object）模块，它可以使数据库代码变的非常简单明了。
 

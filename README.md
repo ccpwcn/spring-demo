@@ -86,7 +86,7 @@ public class HelloProgram {
     }
 }
 ```
-
+在调用getBean()方法时，如果指定了类型，那么返回的类型是确定的，如果没有指定，则需要转型。
 
 ## 3. Spring构成
 这是Spring的构成示意图：

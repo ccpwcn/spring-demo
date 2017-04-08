@@ -71,7 +71,22 @@ public class HelloProgram {
 }
 ```
 这个做法，是在所有类路径（CLASSPATH路径）和JAR文件中查找knights.xml这个文件。当上下文定义好之后，我们就可以调用
-上下文的getBean()方法从Spring容器中获取Bean。
+上下文的getBean()方法从Spring容器中获取Bean。我们以ClassPathXmlApplicationContext为例：
+```java
+package com.company.example;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class HelloProgram {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("knights.xml");
+        HelloWorldService service = context.getBean("helloWorldService", HelloWorldService.class);
+        Knight knight = (Knight) context.getBean("knight");
+    }
+}
+```
+
 
 ## 3. Spring构成
 这是Spring的构成示意图：

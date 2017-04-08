@@ -33,6 +33,15 @@ org.springframework.beans.factory.BeanFactory接口定义），这是最简单�
 > 据网上一般资讯介绍，虽然可以在Bean工厂和应用上下文中任选一种，但是Bean工厂这种做法对一般应用来说太低级了，因此应用
 上下文对Bean工厂更受程序员欢迎。
 
+# 2.1 应用上下文
+Spring自带了很多的应用上下文，我们先看几个常用的：
+- AnnotationConfigApplicationContext，从一个或多个Java配置类中加载Spring应用上下文。
+- AnnotationConfigWebApplicationContext，从一个或多个Java配置类中加载Spring Web应用上下文。
+- ClassPathXmlApplicationContext，从类路径（也就是Java中最常见的CLASSPATH路径）下的一个或多个XML配置文件中加载
+上下文定义，这个上下文定义文件（也就是XML文件）作为类资源文件存在。
+- FileSystemXmlApplicationContext，从文件系统下的一个或多个XML配置文件中加载上下文定义。
+- XmlWebApplicationContext，从Web应用下的一个或多个XML配置文件中加载上下文定义。
+
 ## 3. Spring构成
 这是Spring的构成示意图：
 

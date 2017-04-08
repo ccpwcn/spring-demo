@@ -15,9 +15,15 @@
 主要是避免重复的代码，本例中我们使用的是通过JDBC访问数据库这样的示例。
 
 ## 2. 关于Spring Bean
-这是Spring Bean的生命周期图示：
+在基于Spring的应用中，我们的应用对象生存于Spring容器（Container）中。这是Spring Bean的生命周期图示：
 
 ![https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png](https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
+
+Spring容器负责创建它们、装配它们，配置并管理它们的整个生命周期，从生存到死亡（也就是可以认为这从new到finalize()）。
+
+**什么是Spring容器？**  
+Spring容器是Spring框架的核心，它使用依赖注入（Dependencies Injection）这种方式管理构成应用的组件，而且还能创建
+多个组件之间相互协作的关联关系。
 
 ## 3. Spring构成
 这是Spring的构成示意图：

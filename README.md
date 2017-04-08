@@ -42,6 +42,37 @@ Spring自带了很多的应用上下文，我们先看几个常用的：
 - FileSystemXmlApplicationContext，从文件系统下的一个或多个XML配置文件中加载上下文定义。
 - XmlWebApplicationContext，从Web应用下的一个或多个XML配置文件中加载上下文定义。
 
+简单地，我们使用FileSystemXmlApplicationContext从文件系统中装载应用上下文定义文件：
+```java
+package com.company.example;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+public class HelloProgram {
+    public static void main(String[] args) {
+        ApplicatoinContext context = new FileSystemXmlApplicationContext("C:/res/knights.xml");
+    }
+}
+```
+
+使用ClassPathXmlApplicationContext和FileSystemXmlApplicationContext非常相似，区别只在于如何加载应用上下文定义
+文件：
+```java
+package com.company.example;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class HelloProgram {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("knights.xml");
+    }
+}
+```
+这个做法，是在所有类路径（CLASSPATH路径）和JAR文件中查找knights.xml这个文件。当上下文定义好之后，我们就可以调用
+上下文的getBean()方法从Spring容器中获取Bean。
+
 ## 3. Spring构成
 这是Spring的构成示意图：
 

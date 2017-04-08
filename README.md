@@ -86,6 +86,7 @@ public class HelloProgram {
     }
 }
 ```
+在应用上下文准备就绪之后，我们就可以调用上下文的getBean()方法从Spring容器中获取Bean。  
 在调用getBean()方法时，如果指定了类型，那么返回的类型是确定的，如果没有指定，则需要转型。
 
 ## 3. Spring构成

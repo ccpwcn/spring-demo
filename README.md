@@ -15,11 +15,7 @@
 主要是避免重复的代码，本例中我们使用的是通过JDBC访问数据库这样的示例。
 
 ## 2. 关于Spring Bean
-在基于Spring的应用中，我们的应用对象生存于Spring容器（Container）中。这是Spring Bean的生命周期图示：
-
-![https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png](https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
-
-Spring容器负责创建它们、装配它们，配置并管理它们的整个生命周期，从生存到死亡（也就是可以认为这从new到finalize()）。
+在基于Spring的应用中，我们的应用对象生存于Spring容器（Container）中。
 
 **什么是Spring容器？**  
 Spring容器是Spring框架的核心，它使用依赖注入（Dependencies Injection）这种方式管理构成应用的组件，而且还能创建
@@ -33,7 +29,7 @@ org.springframework.beans.factory.BeanFactory接口定义），这是最简单�
 > 据网上一般资讯介绍，虽然可以在Bean工厂和应用上下文中任选一种，但是Bean工厂这种做法对一般应用来说太低级了，因此应用
 上下文对Bean工厂更受程序员欢迎。
 
-# 2.1 应用上下文
+### 2.1 应用上下文
 Spring自带了很多的应用上下文，我们先看几个常用的：
 - AnnotationConfigApplicationContext，从一个或多个Java配置类中加载Spring应用上下文。
 - AnnotationConfigWebApplicationContext，从一个或多个Java配置类中加载Spring Web应用上下文。
@@ -88,6 +84,17 @@ public class HelloProgram {
 ```
 在应用上下文准备就绪之后，我们就可以调用上下文的getBean()方法从Spring容器中获取Bean。  
 在调用getBean()方法时，如果指定了类型，那么返回的类型是确定的，如果没有指定，则需要转型。
+
+### 2.2 Bean的生命周期
+在传统的Java应用中，Bean的生命周期是自new实例化以来，它就可以使用了，一旦该Bean不再使用，则由Java自动进行垃圾回收。
+
+相比之下，Spring容器的Bean生命周期就显的相对复杂的多。然而，我们要掌握Spring，就必须正确理解Spring Bean的生命周期，
+这非常重要。这是Spring Bean的生命周期图示：
+
+![https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png](https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
+
+Spring容器负责创建它们、装配它们，配置并管理它们的整个生命周期，从生存到死亡（也就是可以认为这从new到finalize()）。
+
 
 ## 3. Spring构成
 这是Spring的构成示意图：

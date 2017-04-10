@@ -176,3 +176,11 @@ ResponseEntity< Object >而不是ModelAndView
 9. RestTemplate和RequestBody参数支持泛型
 10. RestTemplate和RequestMapping可以支持HTTP的PATCH方法
 11. 在拦截器匹配时，支持使用URL模式将其排除在拦截器的处理功能之外
+
+Spring 3.2的MVC之外的功能更新：   
+1. Autowired、Value、Bean注解可以作为元注解，用于创建自定义的注入和Bean声明注解
+2. DateTimeFormat注解不再依赖于JodaTime，如果提供了JodaTime，就使用它，如果没有提供，使用JDK的SimpleDateFormat
+3. Spring的声明式缓存提供了对JCache 0.5的支持
+4. 支持定义全局的格式来解析和渲染日期与时间
+5. 在集成测试中，能够配置和加载WebApplicationContext
+6. 在集成测试中，能够针对request和session作用域的bean进行测试

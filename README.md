@@ -150,3 +150,7 @@ Spring 3.1针对SpringMVC的功能增强：
 3. 提供了RequestPart注解，用于将MultiPart请求中的某些部分数据绑定到处理器的方法参数中
 4. 支持Flash属性（这是一个能够在redirect之后仍然能够存活的属性）以及用于在请求间存放Flash属性的RedirectAttributes
 类型
+
+
+不能继续使用的功能：  
+JpaTemplate类和JpaDaoSupport类被废弃了，后来更是在3.2之后的版本中被删除了。

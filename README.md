@@ -137,3 +137,10 @@ JDBC和DAO（Data Access Object）模块，它可以使数据库代码变的非�
 ## 4. Spring版本与历史
 ### 4.1 Spring 3.1的新功能特性
 Spring 3.1在简化和改善配置方面有很多改进，还提供了声明式缓存的支持，以及对Spring MVC的功能增强。
+1. 环境Profile功能，使得针对开发、测试、生产环境可以应用不同的配置，借助于Profile，可以快速处理在不同环境中应用
+不同的Bean。
+2. 多个enable注解，使用这个注解可以启用Spring的特定功能
+3. 添加对声明式缓存的支持，能够简单的注解声明缓存的边界和规则，这与我们声明事务边界非常类似
+4. 新添加的用于构造器注入的c命名空间，它类似于Spring 2.x中提供的面向属性的p命名空间（p命名空间用于属性注入）
+5. 支持Servlet 3.0，包括在基于Java的配置中声明Servlet和Filter，这样就可以不用借助于web.xml这个配置文件了
+6. 改进Spring对JPA的支持，现在可以在Spring中完整的使用JPA，不再需要使用persistence.xml文件了

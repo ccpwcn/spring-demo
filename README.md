@@ -144,3 +144,9 @@ Spring 3.1在简化和改善配置方面有很多改进，还提供了声明式�
 4. 新添加的用于构造器注入的c命名空间，它类似于Spring 2.x中提供的面向属性的p命名空间（p命名空间用于属性注入）
 5. 支持Servlet 3.0，包括在基于Java的配置中声明Servlet和Filter，这样就可以不用借助于web.xml这个配置文件了
 6. 改进Spring对JPA的支持，现在可以在Spring中完整的使用JPA，不再需要使用persistence.xml文件了
+Spring 3.1针对SpringMVC的功能增强：
+1. 自动绑定路径变量到模型属性
+2. 提供了RequestMapping的produces和consumers两个属性，分别用于匹配请求中的Accept和Content-Type头部信息
+3. 提供了RequestPart注解，用于将MultiPart请求中的某些部分数据绑定到处理器的方法参数中
+4. 支持Flash属性（这是一个能够在redirect之后仍然能够存活的属性）以及用于在请求间存放Flash属性的RedirectAttributes
+类型

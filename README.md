@@ -154,3 +154,25 @@ Spring 3.1针对SpringMVC的功能增强：
 
 不能继续使用的功能：  
 JpaTemplate类和JpaDaoSupport类被废弃了，后来更是在3.2之后的版本中被删除了。
+
+### 4.2 Spring 3.2的新功能特性
+Spring 3.2主要关注于SpringMVC的功能改进：
+1. 控制器可以使用Servlet 3.0的异步请求，允许在一个独立的线程中处理请求，从而将Servlet线程解放出来以处理更多的请求
+2. 虽然从Spring 2.5开始，SpringMVC就能够以POJO的形式进行很方便的测试，但是Spring 3.2中引入了SpringMVC测试框架，
+用于为控制器编写更丰富的测试，使用断言判定控制器的行为是否正确，而且在使用的过程中并不需要Servlet容器
+3. 除了提供控制器的测试功能，Spring 3.2还包含了基于RestTemplate的客户端的测试支持，在测试的过程中，不需要往真正的
+REST端点上发送请求
+4. ControllerAdvice注解能够将通用的ExceptionHandler、InitBinder、ModeAttributes方法收集到一个类中，并应用到所有
+控制器上
+5. 在Spring 3.2之前，只能通过ContentNegotiatingViewResolver使用完整的内容协商（Full Content Negotiation）功能，
+但是在Spring 3.2中，完整的内容协商功能可以在整个SpringMVC中使用，即使是依赖于消息转换器（Message Converter）使用
+和生产内容的控制器也能使用该功能
+6. 一个新的MatrixVariable注解，这个注解能够将请求中的矩阵变量绑定到处理器的方法参数中
+7. 基础的抽象类AbstractDispatcherServletInitializer能够非常便利的配置DispatcherServlet，而不必再使用web.xml。与
+之类似，当你希望通过基于Java的方式来配置Spring时，可以使用AbstractAnnotationConfigDispatcherServletInitializer的
+子类
+8. 新增ResponseEntityExceptionHandler，可以用于替代DefaultHandlerExceptionResolver，这个新增类会返回
+ResponseEntity< Object >而不是ModelAndView
+9. RestTemplate和RequestBody参数支持泛型
+10. RestTemplate和RequestMapping可以支持HTTP的PATCH方法
+11. 在拦截器匹配时，支持使用URL模式将其排除在拦截器的处理功能之外

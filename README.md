@@ -135,7 +135,7 @@ Spring核心容器是所有Spring模块的基础，也就是说，其他的所�
 JDBC和DAO（Data Access Object）模块，它可以使数据库代码变的非常简单明了。
 
 ## 4. Spring版本与历史
-### 4.1 Spring 3.1的新功能特性
+### 4.1 Spring 3.1版本特性
 Spring 3.1在简化和改善配置方面有很多改进，还提供了声明式缓存的支持，以及对Spring MVC的功能增强。
 1. 环境Profile功能，使得针对开发、测试、生产环境可以应用不同的配置，借助于Profile，可以快速处理在不同环境中应用
 不同的Bean。
@@ -155,7 +155,7 @@ Spring 3.1针对SpringMVC的功能增强：
 不能继续使用的功能：  
 JpaTemplate类和JpaDaoSupport类被废弃了，后来更是在3.2之后的版本中被删除了。
 
-### 4.2 Spring 3.2的新功能特性
+### 4.2 Spring 3.2版本特性
 Spring 3.2主要关注于SpringMVC的功能改进：
 1. 控制器可以使用Servlet 3.0的异步请求，允许在一个独立的线程中处理请求，从而将Servlet线程解放出来以处理更多的请求
 2. 虽然从Spring 2.5开始，SpringMVC就能够以POJO的形式进行很方便的测试，但是Spring 3.2中引入了SpringMVC测试框架，
@@ -184,3 +184,4 @@ Spring 3.2的MVC之外的功能更新：
 4. 支持定义全局的格式来解析和渲染日期与时间
 5. 在集成测试中，能够配置和加载WebApplicationContext
 6. 在集成测试中，能够针对request和session作用域的bean进行测试
+

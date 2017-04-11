@@ -185,3 +185,20 @@ Spring 3.2的MVC之外的功能更新：
 5. 在集成测试中，能够配置和加载WebApplicationContext
 6. 在集成测试中，能够针对request和session作用域的bean进行测试
 
+### 4.3 Spring 4.0版本特性
+1. 提供对WebSocket编程支持，包括支持JSR-356--Java API for WebSocket
+2. 由于WebSocket本身仅仅了一种低层次的API，编程人员急需高层次的抽象，因此Spring 4.0在WebSocket基础之上提供了一个
+更高层次的面向消息的编程模型，该模型基于SockJS，并且包含了对STOMP协议的支持
+3. 新的消息模块（Message），很多的类型源于Spring Integration项目，这个消息模块支持前面所说的Spring自己在4.0中新增
+的SockJS/STOMP功能，同时提供了基于模板的方式发布消息
+4. 率先支持Java 8特性（据说是第一批支持Java 8的框架），比如lambda表达式，这让代码更加简洁和易读，尤其是在使用特定的
+回调接口（比如RowMapper和JdbcTemplate）的时候
+5. 支持Java 8的同时，提供了对JSR-310--Date与Time API的支持，在处理日期和时间时，为开发者提供了比java.util.Date和
+java.util.Calendar更丰富的API
+6. 为Groovy开发提供了更加顺畅的编程体验，尤其是支持非常便利地完全采用Groovy开发Spring应用。随这些一起提供的是来自于
+Grails的BeanBuilder，借助它能够通过Groovy配置Spring应用
+7. 添加条件化创建Bean功能，也就是说只有预定义和条件满足时才会创建所声明的Bean
+8. Spring 4.0包含了Spring RestTemplate的一个新的异步实现，它会立即返回并且允许在操作完成之后执行回调
+9. 添加了多项对JEE规范的支持，包括JMS 2.0、JTA 1.2、JPA 2.1和Bean Validationi 1.1
+
+好，让我们从Spring 4.x开始吧！！！

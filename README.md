@@ -225,3 +225,72 @@ Spring从两个角度来实现自动化装配：
 首先，我们创建一个CompactDisc类，Spring会发现并将其创建为一个Bean，然后，再创建一个CDPlayer类，让Spring自动的发现
 和应用CompactDisc（也就是说，让Spring自动地将CompactDisc这个Bean注入到CDPlayer中来。
 
+#### 5.2.1 创建可以被发现的Bean
+首先可以确认的逻辑是：如果不将CompactDisc注入到CDPlayer中，CDPlayer是没有什么功用的，所以说：CDPlayer这个播放器必
+须要依赖于CompactDisc才能完成它的使命。
+
+为了在Spring中阐述这个例子，我们首先在Java中建立CompactDisc，创建一个接口，如下所示：
+```java
+package com.sinoiov.lhjh;
+
+public interface CompactDisc {
+    void play();
+}
+```
+CompactDisc的具体内容我们不关注，所以我们将它定义为一个接口，作为接口，它明确请求方能对这个CD做的事情，就是播放（也
+就是play()方法）。我们现在再写一个实现：
+```java
+package com.sinoiov.lhjh;
+import org.springframework.stereotype.Component;
+
+@Component
+public class SgtPeppers implements CompactDisc {
+    private String title = "Sgt, Pepper's Lonely Hearts Club Band";
+    private String artist = "The Beatles";
+    
+    @Override
+    public void play() {
+        System.out.println("Playing..." + title + " by " + artist);
+    }
+}
+```
+和CompactDisc接口一样，这个类的具体内容其实我们不关心，它唯一稍显特殊的地方是使用一个注解Component，这个简单的注解就
+表明这个类是组件类，并且通知Spring要为这个类创建Bean。现在，我们没有必要再去显式的配置SgtPeppers这个Bean了，因为这个
+类使用了Component注解，所以Spring会自动把它处理妥当。
+
+然而组件扫描默认不是启用状态，我们需要在配置文件中通知Spring这么做，让Spring去帮助我们找到有Component注解的那些类并
+为其创建Bean。我们这么做：
+```java
+package com.sinoiov.lhjh;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan;
+
+@Configuration
+@ComponentScan
+public class CDPlayerConfig {
+}
+```
+类CDPlayerConfig通过Java代码定义了一个Spring的装配规则，细节问题我们以后可以再关注，就目前看到的，是这个类并没有显式
+地声明任何Bean，只不过它使用了ComponentScan注解，这个注解就能够通知Spring启用组件自动扫描。
+
+如果没有其他配置的话，ComponentScan默认会扫描与配置类相同的包（也就是这个配置类所在的包），现在，CDPlayerConfig这个类
+位于com.sinoiov.lhjh这个包中，那么这个包及其所有子包下的带有Component注解的类，都会被Spring自动扫描到，如此以来，Spring
+就能发现CompactDisc并且创建它的Bean。
+
+
+如果你更倾向于使用XML来启用组件扫描，那么配置文件是这样的：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.sinoiov.lhjh"/>
+</beans>
+```
+
+

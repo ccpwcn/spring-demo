@@ -292,5 +292,34 @@ public class CDPlayerConfig {
     <context:component-scan base-package="com.sinoiov.lhjh"/>
 </beans>
 ```
+上面的配置做完之后，我们就已经正确的使用了Spring的组件自动扫描机制，现在我们还需要创建一个JUnit的测试类，来判断我们
+的CompactDisc是不是真正的创建出来了。下面是程序清单：
+```java
+package com.sinoiov.lhjh;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = CDPlayerConfig.class)
+public class CDPlayerTest {
+    @Autowired
+    private CompactDisc cd;
+    
+    @Test
+    public void cdShouldNotBeNull() {
+        org.junit.Assert.assertNotNull(cd);
+    }
+}
+```
+使用这些功能，需要在工程依赖中增加Junit和Spring Test模块这两项，如果你是Java类型的工程，请将它们的JAR包复制到
+CLASSPATH中，如果你是Maven类型的工程，请将它们的依赖项增加到pom.xml中，如果你是Gradle类型的工程，请将它们的依
+赖项增加到build.gradle文件中。
+
+CDPlayerTest使用了Spring的SpringJUnit4ClassRunner，以便在测试开始的时候自动创建Spring应用上下文。注解
+ContextConfiguration会告诉Spring去找到CDPlayerConfig这个类加载配置，因为CDPlayerConfig中包含了ComponentScan，
+进一步的，因此，通过CDPlayerConfig就能扫描到配置了注解Component的那些类（也就是组件），所以最终的应用上下文中，
+应该会包含CompactDisc的Bean（而且它就是我们前面配置的SgtPeppers的一个实例）。

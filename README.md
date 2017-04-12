@@ -215,3 +215,13 @@ Grails的BeanBuilder，借助它能够通过Groovy配置Spring应用
 并且比XML更加强大的JavaConfig。最后，只有当想要使用便利的XML命名空间，并且JavaConfig中没有同样的实现时，才考虑使用
 XML。
 
+### 5.2 自动化装配Bean
+虽然显式装配技术非常有用，但是在便利性方式，最强大的还是Spring的自动化装配。
+
+Spring从两个角度来实现自动化装配：
+- 组件扫描（component scanning）：Spring会自动发现应用上下文中所创建的Bean
+- 自动装配（autowiring）：Spring自动满足Bean之间的依赖
+
+首先，我们创建一个CompactDisc类，Spring会发现并将其创建为一个Bean，然后，再创建一个CDPlayer类，让Spring自动的发现
+和应用CompactDisc（也就是说，让Spring自动地将CompactDisc这个Bean注入到CDPlayer中来。
+

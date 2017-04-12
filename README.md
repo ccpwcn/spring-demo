@@ -202,3 +202,17 @@ Grails的BeanBuilder，借助它能够通过Groovy配置Spring应用
 9. 添加了多项对JEE规范的支持，包括JMS 2.0、JTA 1.2、JPA 2.1和Bean Validationi 1.1
 
 好，让我们从Spring 4.x开始吧！！！
+
+## 5. Spring之Bean的装配（Wiring）
+### 5.1 Spring配置的可选方案
+作为开发人员，需要告诉Spring要创建哪些Bean，并且如何将他们装配在一起。Spring提供了三种主要的装配机制：
+- 在XML中进行显式配置
+- 在Java中进行显式配置
+- 隐式的Bean发现机制和自动装配
+
+虽然有这样多样化的装配机制，甚至它们可以互相搭配使用，但是权威资料建议的做法还是使用自动配置的机制。显式配置越少越好，
+当必须要显式的配置Bean的时候（比如，有些源码不是由你来维护的，而当你需要为这些代码配置Bean的时候），推荐使用类型安全
+并且比XML更加强大的JavaConfig。最后，只有当想要使用便利的XML命名空间，并且JavaConfig中没有同样的实现时，才考虑使用
+XML。
+
+

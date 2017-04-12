@@ -215,4 +215,3 @@ Grails的BeanBuilder，借助它能够通过Groovy配置Spring应用
 并且比XML更加强大的JavaConfig。最后，只有当想要使用便利的XML命名空间，并且JavaConfig中没有同样的实现时，才考虑使用
 XML。
 
-

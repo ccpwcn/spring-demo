@@ -315,7 +315,7 @@ public class CDPlayerTest {
     }
 }
 ```
-使用这些功能，需要在工程依赖中增加Junit和Spring Test模块这两项，如果你是Java类型的工程，请将它们的JAR包复制到
+使用这些功能，需要在工程依赖中增加JUnit和Spring Test模块这两项，如果你是Java类型的工程，请将它们的JAR包复制到
 CLASSPATH中，如果你是Maven类型的工程，请将它们的依赖项增加到pom.xml中，如果你是Gradle类型的工程，请将它们的依
 赖项增加到build.gradle文件中。
 

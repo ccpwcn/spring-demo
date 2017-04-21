@@ -328,3 +328,74 @@ ContextConfiguration会告诉Spring去找到CDPlayerConfig这个类加载配置�
 应该会包含CompactDisc的Bean（而且它就是我们前面配置的SgtPeppers的一个实例）。而且在这个测试用例中，我们会有测试
 方法中的断言去验证注入到测试代码中的CompactDisc的实例cd不为空，如果它不为空，就意味着Spring能够自动发现CompactDisc
 类，自动在Spring应用上下文中为其创建Bean，并将创建的Bean注入到测试类CDPlayerTest中。
+
+在上面这样的配置中，com.sinoiov.lhjh及其子包中，所有带有@Component注解的类都会自动创建为Bean，也就是说，只要我们在
+Java配置文件CDPlayerConfig（或者XML配置文件）中加一行@ComponentScan注解（或者context:component-scan节点），就能够
+自动创建无数个Bean，真是既方便又划算。
+
+#### 5.2.2 为组件扫描的Bean命名
+在前面的例子中，我们没有明确的为Bean设置ID（比如前面的SgtPeppers），但是在实际中，Spring应用上下文中的所有Bean都会
+有一个ID，默认的，它是将类名的第一个字母改成小写，本例中，就会是sgtPeppers。当然，我们也可以为这个Bean自己定义一个
+ID，这很容易做到：
+```java
+package com.sinoiov.lhjh;
+import org.springframework.stereotype.Component;
+
+@Component(value = "lonelyHeartsClub")
+public class SgtPeppers implements CompactDisc {
+    private String title = "Sgt, Pepper's Lonely Hearts Club Band";
+    private String artist = "The Beatles";
+    
+    @Override
+    public void play() {
+        System.out.println("Playing..." + title + " by " + artist);
+    }
+}
+```
+这里的lonelyHeartsClub就是我们为这个Bean指定的新的标识ID，而且，也可以进一步简写：
+```java
+@Component("lonelyHeartsClub")
+public class SgtPeppers implements CompactDisc {
+    // TODO ...
+}
+```
+这里还有另外一种规范，它不使用@Component注解，而是使用Java依赖注入规范中所提供的@Named注解来为Bean设
+置ID，这也没有什么难的：
+```java
+import javax.inject.Named;
+
+@Named("lonelyHeartsClub")
+public class SgtPeppers implements CompactDisc {
+    // TODO ...
+}
+```
+需要说明的是，@Component注解是Spring自带的，而@Named注解是JSR-330的，当前Spring对它是完全兼容的。但是有专家并不建议
+使用@Named注解，理由是当我们在大量的代码中看到一个类的时候，它标记为@Named，事实上我们许多时候仍然不能很好的表明它是
+做什么的（好像意思就是说不能见名知义）。
+> 到底什么是JSR-330呢？它其实是Java EE 6中的一种规范，是对Dependency Injection for Java的一种规范，也就是在Java 
+EE中的依赖注入的行为规范的称谓。Java语言本身和它所带的JDK，只提供了一些语言的基本实现和功能支持，如果我们需要
+开发企业级应用，比如高性能、高可用性的大型分布式系统，那么我们的开发和测试的工作量将是巨大的难以想像的，因此
+SUN公司就在Java语言的基础上，做了很多扩展和增强，推出了Java EE，也就是Java语言企业级版本，它能够帮助我们快速
+的开发和部署可移植的、健壮的、可伸缩的而且安全的服务器应用，它在Java的基础上，提供了一整套的Web服务、组件模
+型、管理和通用API，其中主要有JDBC（提供统一的连接关系型数据库的接口）、RMI（远程方法调用，主要用于开发分布式
+Java应用）、JMS（Java消息服务，主要提供企业消息服务）、JavaBeans（开放的标准的组件体系）、JTS（Java事务服务，
+主要提供存取事务处理资源的开放标准）。在这种应用场景下，众多技术细节中的一个问题：Java类的创建和引用问题，就
+已经变的非常复杂，比如我们有一个类叫User，在很多地方调用了它，而现在，这个类的创建方式发生了变化（也就是说它
+的构造器可能需要改写或者重载）以适应新的需求，那么所有引用了它的地方都需要进行修改，这样的情况是类与类之间处
+于高耦合状态，这些对象和资源的组织都是硬编码，灵活性不高，维护成本也居高不下，所以需要一种更好的方式解决这个
+问题，具体做法是：凡是引用了User这个类的其他类，都在自己定义的时候，通过某种机制完成User的自动创建。而这个“
+某种机制”的实现思想，就是在组件外部给它们配一个容器，这个容器控制对象的创建、并将对象所依赖的其他对象和资源
+注入到这个对象中去，这种做法是对传统的依赖方自己创建自己所依赖的组件的一种反转，所以就叫做控制反转（Inverse
+of Controller，IoC），所以，IoC本质上是一种解决问题的思想而不是具体的方法，这种承载了IoC思想的容器，就叫做
+IoC容器。在这样一种机制之下，解决问题的过程是这样的：ClassA依赖于ClassB，ClassB又依赖于ClassC，IoC容器在创
+建了ClassA之后，分析得知它依赖于ClassB，那么再创建ClassB，并将创建出来的ClassB注入到ClassA，进一步分析发现
+ClassB又依赖于ClassC，那么重复这个创建的过程，并将创建出来的ClassC对象注入到刚创建的ClassB对象中，逐层处理
+所有依赖，直到所有依赖者都被创建，此时ClassA这个对象就已经可以正常工作了（因为它的所有依赖问题都解决了嘛），
+这就是依赖注入（Dependency Inject， DI），所以依赖注入本质上是对组件依赖和引用关系解决方案的一种总结和描述。
+现在回归正题，JSR-330被发明出来的过程是这样的：在2004年3月，Spring 1.0就已经使用外部的配置文件来实现上面所
+讲的控制反转及其容器以及依赖注入的功能，到了2004年10月JDK 1.5发布时，已经支持注解这种语法，所以2007年3月
+Google Guice 1.0发布，就使用注解来实现这些功能，紧接着2007年11月，Spring 2.5也支持注解方式实现这些功能。然
+而，新的问题出来了，随着时间的推移，各种IoC容器都出来了，它们对组件依赖方式的描述五花八门，所以，为了规范和
+统一，JCP（Java Community Process，一个开放的国际组织， http://baike.baidu.com/item/jcp）于2009年10月份发布
+了JSR-330。JSR-330在javax.inject中对可注入、限定器、标记作用域、基于Spring的限定器、是否单例等等，都做出了
+明确规定。

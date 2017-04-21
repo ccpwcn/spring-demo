@@ -399,3 +399,60 @@ Google Guice 1.0发布，就使用注解来实现这些功能，紧接着2007年
 统一，JCP（Java Community Process，一个开放的国际组织， [http://baike.baidu.com/item/jcp](http://baike.baidu.com/item/jcp)）
 于2009年10月份发布了JSR-330。JSR-330在javax.inject中对可注入、限定器、标记作用域、基于Spring的限定器、是否
 单例等等，都做出了明确规定。
+
+#### 5.2.3 设置组件扫描的基础包
+我们在前面使用的@ComponentScan注解没有设置任何属性，所以它是按照默认行为方式进行的组件扫描，实际中我们可能需要进行
+更多的自定义，或者要扫描多个包。
+
+至少有一种情况：我们想将配置类放在单独的包中，将它与组件包分开存放，如果这样的话，使用默认选项就不能满足需求了。
+然而这很简单，我们很容易就能解决这个问题：
+```java
+package com.sinoiov.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan;
+
+@Configuration
+@ComponentScan(basePackages = {"com.sinoiov.lhjh"})
+public class CDPlayerConfig {
+    // TODO: ...
+}
+```
+这种方式，我们明确了配置类CDPlayerConfig本身在com.sinoiov.config这个包中，而我们指定要扫描的包在com.sinoiov.lhjh
+这个包中。同时我们还看到了，basePackages这是一个数组，所以我们还可以为它指定多个值：
+```java
+@ComponentScan(basePackages = {"com.sinoiov.lhjh1", "com.sinoiov.lhjh2"})
+public class CDPlayerConfig {
+    // TODO: ...
+}
+```
+是不是很酷？
+
+当然了，更简单的：我们可以使用使用这种方式：
+```java
+@Configuration
+@ComponentScan("com.sinoiov.lhjh")
+public class CDPlayerConfig {
+    // TODO: ...
+}
+```
+然而，上面这种方式它有一个缺陷，这里所设置的基础包是String类型的，但它不是类型安全的，如果代码被重构的话，那么所指定
+的包就有可能出现错误了。
+
+怎么解决这个问题呢？我们可以将其指定为包中所包含的类或者接口：
+```java
+@Configuration
+@ComponentScan(basePackageClasses = {CDPlayer.class, DVDPlayer.class})
+public class CDPlayerConfig {
+    // TODO: ...
+}
+```
+这种做法的结果是：basePackageClasses属性气设置的数组中包含了若干个类，这些类所在的包，都会作为组件扫描的基础包。而
+且，在这个样例中，我们指定的是具体的组件类CDPlayer和DVDPlayer，在实际工作中，可以考虑在要被扫描的基础包中创建一个
+空的标记接口（Marker Interface），通过这种标记接口的方式，可以保持对代码重构的友好的接口引用，而且同时能够避免任何
+实际的应用程序代码（想想吧，某一天需求说既不需要CDPlayer也不需要DVDPlayer了，它们被删除了，那么我们的配置难道还要
+再修改、检查、测试一遍么？，当使用了空接口，这一切都会变得非常优雅）。
+
+现在，还有一个问题：在实际中，我们的每个组件对象都是独立的（就像SgtPeppers这个Bean一样）的可能是很小的，它们通常
+都是存在依赖关系的，如果它们是独立的，那么我们配置了组件自动扫描就可以了，但是面对这种有复杂依赖关系的，我们就需要
+使用Spring自动化配置中的自动装配来解决这个问题。

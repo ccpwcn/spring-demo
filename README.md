@@ -396,6 +396,6 @@ ClassB又依赖于ClassC，那么重复这个创建的过程，并将创建出�
 讲的控制反转及其容器以及依赖注入的功能，到了2004年10月JDK 1.5发布时，已经支持注解这种语法，所以2007年3月
 Google Guice 1.0发布，就使用注解来实现这些功能，紧接着2007年11月，Spring 2.5也支持注解方式实现这些功能。然
 而，新的问题出来了，随着时间的推移，各种IoC容器都出来了，它们对组件依赖方式的描述五花八门，所以，为了规范和
-统一，JCP（Java Community Process，一个开放的国际组织， http://baike.baidu.com/item/jcp）于2009年10月份发布
-了JSR-330。JSR-330在javax.inject中对可注入、限定器、标记作用域、基于Spring的限定器、是否单例等等，都做出了
-明确规定。
+统一，JCP（Java Community Process，一个开放的国际组织， [http://baike.baidu.com/item/jcp](http://baike.baidu.com/item/jcp)）
+于2009年10月份发布了JSR-330。JSR-330在javax.inject中对可注入、限定器、标记作用域、基于Spring的限定器、是否
+单例等等，都做出了明确规定。

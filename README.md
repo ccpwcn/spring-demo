@@ -541,6 +541,8 @@ public class CDPlayer implements MediaPlayer {
 
 ```
 将required属性值设置为false的话，Spring将会尝试自动装配，如果没有匹配的Bean，Spring会让这个Bean处于未装配状态，所以我们需要在代码中进行谨慎的处理，比如做非空判断，如果没有这样的检查判断机制，就有可能在程序运行期间出现NullPointerException。
-如果有多个Bean能够满足依赖的情况下，Spring将会抛出一个异常。
+如果有多个Bean能够满足依赖的情况下，Spring将会抛出一个异常，表明没有明确指定要选择那一个Bean进行自动装配。
+
+
 
 

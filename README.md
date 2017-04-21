@@ -250,7 +250,7 @@ import org.springframework.stereotype.Component;
 public class SgtPeppers implements CompactDisc {
     private String title = "Sgt, Pepper's Lonely Hearts Club Band";
     private String artist = "The Beatles";
-    
+
     @Override
     public void play() {
         System.out.println("Playing..." + title + " by " + artist);
@@ -311,7 +311,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class CDPlayerTest {
     @Autowired
     private CompactDisc cd;
-    
+
     @Test
     public void cdShouldNotBeNull() {
         org.junit.Assert.assertNotNull(cd);
@@ -345,7 +345,7 @@ import org.springframework.stereotype.Component;
 public class SgtPeppers implements CompactDisc {
     private String title = "Sgt, Pepper's Lonely Hearts Club Band";
     private String artist = "The Beatles";
-    
+
     @Override
     public void play() {
         System.out.println("Playing..." + title + " by " + artist);
@@ -372,7 +372,7 @@ public class SgtPeppers implements CompactDisc {
 需要说明的是，@Component注解是Spring自带的，而@Named注解是JSR-330的，当前Spring对它是完全兼容的。但是有专家并不建议
 使用@Named注解，理由是当我们在大量的代码中看到一个类的时候，它标记为@Named，事实上我们许多时候仍然不能很好的表明它是
 做什么的（好像意思就是说不能见名知义）。
-> 到底什么是JSR-330呢？它其实是Java EE 6中的一种规范，是对Dependency Injection for Java的一种规范，也就是在Java 
+> 到底什么是JSR-330呢？它其实是Java EE 6中的一种规范，是对Dependency Injection for Java的一种规范，也就是在Java
 EE中的依赖注入的行为规范的称谓。Java语言本身和它所带的JDK，只提供了一些语言的基本实现和功能支持，如果我们需要
 开发企业级应用，比如高性能、高可用性的大型分布式系统，那么我们的开发和测试的工作量将是巨大的难以想像的，因此
 SUN公司就在Java语言的基础上，做了很多扩展和增强，推出了Java EE，也就是Java语言企业级版本，它能够帮助我们快速
@@ -456,3 +456,91 @@ public class CDPlayerConfig {
 现在，还有一个问题：在实际中，我们的每个组件对象都是独立的（就像SgtPeppers这个Bean一样）的可能是很小的，它们通常
 都是存在依赖关系的，如果它们是独立的，那么我们配置了组件自动扫描就可以了，但是面对这种有复杂依赖关系的，我们就需要
 使用Spring自动化配置中的自动装配来解决这个问题。
+
+#### 5.2.4 通过为Bean添加注解实现自动装配
+简单的讲，自动装配就是让Spring自动满足Bean的依赖的一种方法，在满足依赖的过程中，会在Spring上下文中寻找匹配某个Bena
+所需求的其他Bean。声明自动装配，我们需要使用Spring的@Autowired注解。
+
+比方说，我们在前面的CDPlayer类，在它的构造器上添加@Autowired注解，这表明当Spring创建CDPlayer这个Bean时，会通过
+这个构造器来进行实例化并且会传入一个可以设置给CompactDisc类型的Bean：
+```java
+package com.sinoiov.player;
+
+import org.springframework.bean.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CDPlayer implements MediaPlayer {
+    private CompactDisc cd;
+
+    @Autowired
+    public CDPlayer(CompactDisc cd) {
+        this.cd = cd;
+    }
+
+    @Override
+    public void play() {
+        cd.play();
+    }
+}
+```
+@Autowired注解不仅能够用在构造器上，还能够用在属性的setter方法上，比如说，如果CDPlayer有一个setCompactDisc()的方法，那么就可以这样写：
+```java
+package com.sinoiov.player;
+
+import org.springframework.bean.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CDPlayer implements MediaPlayer {
+    private CompactDisc cd;
+    
+    @Autowired
+    public void setCompactDisc(CompactDisc cd) {
+        this.cd = cd;
+    }
+}
+
+```
+在Spring初始化Bean完成之后，它会尽可能的去满足Bean的依赖，在本例中，依赖是通过带有@Autowired注解的方式进行声明的，也就是CDPlayer依赖于CompactDisc。实际上，setter方法我们用过很多次了，它并没有什么特殊的，@Autowired注解可以用在类的任何方法上，假设CDPlayer有一个insertDisc()的方法，那么我们可以和上面一样完成它的装配，让它发挥完全相同的作用：
+```java
+package com.sinoiov.player;
+
+import org.springframework.bean.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CDPlayer implements MediaPlayer {
+    private CompactDisc cd;
+    
+    @Autowired
+    public void insertDisc(CompactDisc cd) {
+        this.cd = cd;
+    }
+}
+
+```
+不管是构造器、setter方法，还是其他的方法，我们都可以让Spring尝试满足这样的要求：通过方法参数上所声明的依赖，进行自动装配。假如有且仅有一个Bean匹配依赖的话，那么这个Bean将会被装配进来。
+
+如果没有匹配的Bean，那么Spring的应用上下文将会抛出一个异常。为了避免这种异常，我们需要对它的依赖进行检查。在一些条件下，我们可以指定这个装配是否是必须的：
+```java
+package com.sinoiov.player;
+
+import org.springframework.bean.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CDPlayer implements MediaPlayer {
+    private CompactDisc cd;
+
+    @Autowired(required = false)
+    public CDPlayer(CompactDisc cd) {
+        this.cd = cd;
+    }
+}
+
+```
+将required属性值设置为false的话，Spring将会尝试自动装配，如果没有匹配的Bean，Spring会让这个Bean处于未装配状态，所以我们需要在代码中进行谨慎的处理，比如做非空判断，如果没有这样的检查判断机制，就有可能在程序运行期间出现NullPointerException。
+如果有多个Bean能够满足依赖的情况下，Spring将会抛出一个异常。
+
+

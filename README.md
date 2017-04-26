@@ -400,9 +400,13 @@ Google Guice 1.0发布，就使用注解来实现这些功能，紧接着2007年
 于2009年10月份发布了JSR-330。JSR-330在javax.inject中对可注入、限定器、标记作用域、基于Spring的限定器、是否
 单例等等，都做出了明确规定。
 
-事实上，如果我们在一些正式的Spring项目中，Web应用从容器中启动的时候，通常我们会看到这样的一条日志输出：
+事实上，如果我们在一些正式的Spring项目中，Web应用从容器中启动的时候，通常我们会看到这样的日志输出：
 ```text
 09:57:58.952 [RMI TCP Connection(5)-127.0.0.1] INFO  o.s.c.a.ClassPathBeanDefinitionScanner - JSR-330 'javax.inject.Named' annotation found and supported for component scanning
+```
+或者
+```text
+15:52:16.908 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 ```
 这就是关于Spring的组件扫描与JSR-330的一些注解之间关系的最好证明。
 

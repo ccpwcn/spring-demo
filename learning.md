@@ -198,10 +198,13 @@ public class BeanFactory<T> {
                     String methodName = "set" + String.valueOf(propertyName.charAt(0)).toUpperCase() + propertyName.substring(1);
                     Class<?> methodParameterType = null;
                     Object val = null;
-                    // 在这里应该对所有类型都做一次处理，本代码仅是示例，所以只处理Integer和String
+                    // 在这里应该对所有类型都做一次处理，本代码仅是示例，所以只处理Integer、Long和String
                     if (propertyType.equals("int")) {
                         methodParameterType = int.class;
                         val = Integer.parseInt(propertyValue);
+                    } else if (propertyType.equals("long")) {
+                        methodParameterType = long.class;
+                        val = Long.valueOf(propertyValue);
                     } else if (propertyType.equals("String")) {
                         methodParameterType = String.class;
                         val = String.valueOf(propertyValue);
@@ -211,7 +214,8 @@ public class BeanFactory<T> {
                 }
             }
 
-            return inst;
+            if (inst != null)
+                return inst;
         }
 
 
@@ -225,3 +229,101 @@ public class BeanFactory<T> {
 
 现在我们可以看到，只要我们定义了这个一个配置文件和Bean工厂，它们作为通用组件存在，然后我们在外面要使用任何类，只需要
 完成这个类的定义和相应的配置文件的定义就好了，它们的对应关系正确了，就能通过这个工厂和配置文件把它创建出来。
+
+来，我们写个测试类，测一下它：
+```java
+package com.sinoiov.code.spring;
+
+import org.junit.Test;
+
+/**
+ * 用户信息测试类
+ * Created by lidawei on 2017/4/30.
+ */
+public class UserTest {
+    @Test
+    public void testIt() throws Exception {
+        User user = (User) BeanFactory.getInstance().create("userHMBB", User.class);
+        System.out.println(user);
+    }
+}
+```
+运行结果：
+![https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/user.png](https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/user.png)
+
+现在我们不改Bean工厂，我们去写一个新的Order订单类，然后再更新一下配置文件，看能不能自动创建出来：
+```java
+package com.sinoiov.code.spring;
+
+import com.google.gson.Gson;
+
+/**
+ * 订单类
+ * Created by lidawei on 2017/4/30.
+ */
+public class Order {
+    private String id;
+    private long createTimestamp;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public long getCreateTimestamp() {
+        return createTimestamp;
+    }
+
+    public void setCreateTimestamp(long createTimestamp) {
+        this.createTimestamp = createTimestamp;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
+}
+```
+配置文件：
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans>
+    <bean id="userHMBB" class="com.sinoiov.code.spring.User">
+        <property name="gender" type="int" value="1"/>
+        <property name="nickName" type="String" value="海绵宝宝"/>
+    </bean>
+    <bean id="myOrder" class="com.sinoiov.code.spring.Order">
+        <property name="id" type="String" value="508147A9-CBD4-4e67-850B-9EB050A91B41"/>
+        <property name="createTimestamp" type="long" value="123456789"/>
+    </bean>
+</beans>
+```
+更新测试用例：
+```java
+package com.sinoiov.code.spring;
+
+import org.junit.Test;
+
+/**
+ * 用户信息测试类
+ * Created by lidawei on 2017/4/30.
+ */
+public class UserTest {
+    @Test
+    public void testIt() throws Exception {
+        User user = (User) BeanFactory.getInstance().create("userHMBB", User.class);
+        System.out.println(user);
+    }
+
+    @Test
+    public void testOrder() throws Exception {
+        Order order = (Order)BeanFactory.getInstance().create("myOrder", Order.class);
+        System.out.println(order);
+    }
+}
+```
+看结果：
+![https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/order.png](https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/order.png)

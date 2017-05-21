@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public GenericResponse<UserEntity> queryUserInfoById(String userId) {
         logger.info("查询：{}", userId);
+        messageSender.printAllQueueMessage();
         return new GenericResponse<UserEntity>();
     }
 }

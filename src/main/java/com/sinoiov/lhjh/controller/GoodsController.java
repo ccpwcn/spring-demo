@@ -20,25 +20,25 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     GenericResponse add(@RequestBody GoodsEntity entity) {
         return goodsService.add(entity);
     }
 
-    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @RequestMapping(value = "/remove", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     GenericResponse remove(@RequestBody GoodsEntity entity) {
         return goodsService.remove(entity);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     GenericResponse update(@RequestBody GoodsEntity entity) {
         return goodsService.update(entity);
     }
 
-    @RequestMapping(value = "/queryByName", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryByName", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     GenericResponse queryByName(String goodsName) {
         return goodsService.queryByName(goodsName);

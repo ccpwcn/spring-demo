@@ -5,6 +5,7 @@ import com.sinoiov.lhjh.entity.UserEntity;
 import com.sinoiov.lhjh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,25 +20,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
-    GenericResponse add(UserEntity entity) {
+    GenericResponse add(@RequestBody UserEntity entity) {
         return userService.add(entity);
     }
 
-    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @RequestMapping(value = "/remove", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
-    GenericResponse remove(UserEntity entity) {
+    GenericResponse remove(@RequestBody UserEntity entity) {
         return userService.remove(entity);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
-    GenericResponse update(UserEntity entity) {
+    GenericResponse update(@RequestBody UserEntity entity) {
         return userService.update(entity);
     }
 
-    @RequestMapping(value = "/queryUserInfoById", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryUserInfoById", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     GenericResponse<UserEntity> queryUserInfoById(String userId) {
         return userService.queryUserInfoById(userId);

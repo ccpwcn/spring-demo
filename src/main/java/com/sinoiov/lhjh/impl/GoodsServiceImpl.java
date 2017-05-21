@@ -44,6 +44,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public GenericResponse<List<GoodsEntity>> queryByName(String goodsName) {
         logger.info("查询：{}", goodsName);
+        messageSender.printAllQueueMessage();
         return new GenericResponse<List<GoodsEntity>>();
     }
 }

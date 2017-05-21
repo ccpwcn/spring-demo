@@ -7,7 +7,7 @@
     <groupId>com.sinoiov.lhjh</groupId>
     <artifactId>spring-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <packaging>war</packaging>
 
     <parent>
         <groupId>com.ctfo</groupId>

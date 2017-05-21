@@ -35,6 +35,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- 让Spring的日志输出也依从于我们的logback配置 -->
     <context-param>
         <param-name>logbackConfigLocation</param-name>
         <param-value>classpath:logback.xml</param-value>

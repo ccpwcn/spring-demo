@@ -22,32 +22,24 @@ public class GoodsController {
     @RequestMapping(value = "/add")
     public @ResponseBody
     GenericResponse add(@RequestBody GoodsEntity entity) {
-        GenericResponse response = new GenericResponse();
-        goodsService.add(entity);
-        return response;
+        return goodsService.add(entity);
     }
 
     @RequestMapping(value = "/remove")
     public @ResponseBody
     GenericResponse remove(@RequestBody GoodsEntity entity) {
-        GenericResponse response = new GenericResponse();
-        goodsService.remove(entity);
-        return response;
+        return goodsService.remove(entity);
     }
 
     @RequestMapping(value = "/update")
     public @ResponseBody
     GenericResponse update(@RequestBody GoodsEntity entity) {
-        GenericResponse response = new GenericResponse();
-        goodsService.update(entity);
-        return response;
+        return goodsService.update(entity);
     }
 
     @RequestMapping(value = "/queryByName")
     public @ResponseBody
     GenericResponse queryByName(String goodsName) {
-        GenericResponse response = new GenericResponse();
-        goodsService.queryByName(goodsName);
-        return response;
+        return goodsService.queryByName(goodsName);
     }
 }

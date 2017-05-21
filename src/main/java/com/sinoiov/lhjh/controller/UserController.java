@@ -21,32 +21,24 @@ public class UserController {
     @RequestMapping(value = "/add")
     public @ResponseBody
     GenericResponse add(UserEntity entity) {
-        GenericResponse response = new GenericResponse();
-        userService.add(entity);
-        return response;
+        return userService.add(entity);
     }
 
     @RequestMapping(value = "/remove")
     public @ResponseBody
     GenericResponse remove(UserEntity entity) {
-        GenericResponse response = new GenericResponse();
-        userService.remove(entity);
-        return response;
+        return userService.remove(entity);
     }
 
     @RequestMapping(value = "/update")
     public @ResponseBody
     GenericResponse update(UserEntity entity) {
-        GenericResponse response = new GenericResponse();
-        userService.update(entity);
-        return response;
+        return userService.update(entity);
     }
 
     @RequestMapping(value = "/queryUserInfoById")
     public @ResponseBody
     GenericResponse<UserEntity> queryUserInfoById(String userId) {
-        GenericResponse response = new GenericResponse();
-        userService.queryUserInfoById(userId);
-        return response;
+        return userService.queryUserInfoById(userId);
     }
 }

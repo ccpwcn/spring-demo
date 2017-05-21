@@ -7,7 +7,7 @@
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!-- 启动Spring-MVC注解 -->
-    <context:annotation-config/>
+    <mvc:annotation-driven/>
 
     <!-- 使用注解解析Controller，自动扫描 -->
     <context:component-scan base-package="com.sinoiov.lhjh.controller"/>

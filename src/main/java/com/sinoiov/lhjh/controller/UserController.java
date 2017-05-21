@@ -6,6 +6,7 @@ import com.sinoiov.lhjh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -18,25 +19,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/add")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody
     GenericResponse add(UserEntity entity) {
         return userService.add(entity);
     }
 
-    @RequestMapping(value = "/remove")
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public @ResponseBody
     GenericResponse remove(UserEntity entity) {
         return userService.remove(entity);
     }
 
-    @RequestMapping(value = "/update")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public @ResponseBody
     GenericResponse update(UserEntity entity) {
         return userService.update(entity);
     }
 
-    @RequestMapping(value = "/queryUserInfoById")
+    @RequestMapping(value = "/queryUserInfoById", method = RequestMethod.POST)
     public @ResponseBody
     GenericResponse<UserEntity> queryUserInfoById(String userId) {
         return userService.queryUserInfoById(userId);

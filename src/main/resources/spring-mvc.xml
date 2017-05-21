@@ -28,4 +28,5 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 
     <bean id="userService" class="com.sinoiov.lhjh.impl.UserServiceImpl"/>
     <bean id="goodsService" class="com.sinoiov.lhjh.impl.GoodsServiceImpl"/>
+    <bean id="messageSender" class="com.sinoiov.lhjh.message.MessageSender"/>
 </beans>

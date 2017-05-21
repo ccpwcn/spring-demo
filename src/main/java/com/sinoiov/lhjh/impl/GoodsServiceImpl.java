@@ -2,9 +2,11 @@ package com.sinoiov.lhjh.impl;
 
 import com.sinoiov.lhjh.beans.GenericResponse;
 import com.sinoiov.lhjh.entity.GoodsEntity;
+import com.sinoiov.lhjh.message.MessageSender;
 import com.sinoiov.lhjh.service.GoodsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +19,13 @@ import java.util.List;
 public class GoodsServiceImpl implements GoodsService {
     private static final Logger logger = LoggerFactory.getLogger(GoodsServiceImpl.class);
 
+    @Autowired
+    private MessageSender messageSender;
+
     @Override
     public GenericResponse add(GoodsEntity entity) {
         logger.info("创建的值：{}", entity);
+        messageSender.add(entity.toString());
         return new GenericResponse();
     }
 

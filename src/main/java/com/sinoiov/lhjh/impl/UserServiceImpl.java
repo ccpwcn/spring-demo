@@ -2,9 +2,11 @@ package com.sinoiov.lhjh.impl;
 
 import com.sinoiov.lhjh.beans.GenericResponse;
 import com.sinoiov.lhjh.entity.UserEntity;
+import com.sinoiov.lhjh.message.MessageSender;
 import com.sinoiov.lhjh.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,10 +17,13 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     public static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
+    @Autowired
+    private MessageSender messageSender;
 
     @Override
     public GenericResponse add(UserEntity entity) {
         logger.info("创建的值：{}", entity);
+        messageSender.add(entity.toString());
         return new GenericResponse();
     }
 

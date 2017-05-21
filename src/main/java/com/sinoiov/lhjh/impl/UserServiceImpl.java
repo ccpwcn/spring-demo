@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public GenericResponse add(UserEntity entity) {
-        logger.info("创建的值：{}");
+        logger.info("创建的值：{}", entity);
         return null;
     }
 
@@ -29,13 +29,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public GenericResponse update(UserEntity entity) {
-        logger.info("更新的值：{}");
+        logger.info("更新的值：{}", entity);
         return null;
     }
 
     @Override
     public GenericResponse<UserEntity> queryUserInfoById(String userId) {
-        logger.info("查询结果：{}");
+        logger.info("查询：{}", userId);
         return null;
     }
 }

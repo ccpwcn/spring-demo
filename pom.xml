@@ -116,5 +116,20 @@
             <artifactId>logback-core</artifactId>
             <version>1.2.3</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.logback-extensions/logback-ext-spring -->
+        <dependency>
+            <groupId>org.logback-extensions</groupId>
+            <artifactId>logback-ext-spring</artifactId>
+            <version>0.1.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j -->
+        <!-- 为什么要配置这个，请看http://leonmau.blog.51cto.com/2202260/808763 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.25</version>
+        </dependency>
     </dependencies>
 </project>

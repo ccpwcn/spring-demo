@@ -20,23 +20,24 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public GenericResponse add(GoodsEntity entity) {
         logger.info("创建的值：{}", entity);
-        return null;
+        return new GenericResponse();
     }
 
     @Override
     public GenericResponse remove(GoodsEntity entity) {
-        return null;
+        logger.info("删除的值：{}", entity);
+        return new GenericResponse();
     }
 
     @Override
     public GenericResponse update(GoodsEntity entity) {
         logger.info("更新的值：{}", entity);
-        return null;
+        return new GenericResponse();
     }
 
     @Override
     public GenericResponse<List<GoodsEntity>> queryByName(String goodsName) {
         logger.info("查询：{}", goodsName);
-        return null;
+        return new GenericResponse<List<GoodsEntity>>();
     }
 }

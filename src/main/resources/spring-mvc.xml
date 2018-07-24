@@ -9,6 +9,8 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     <!-- 启动Spring-MVC注解 -->
     <mvc:annotation-driven/>
 
+    <bean id="SpringContextUtil " class="com.sinoiov.lhjh.config.SpringContextUtil" lazy-init="false"/>
+
     <!-- 使用注解解析Controller，自动扫描 -->
     <context:component-scan base-package="com.sinoiov.lhjh.controller"/>
 

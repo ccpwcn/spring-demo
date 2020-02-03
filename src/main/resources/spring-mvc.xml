@@ -17,10 +17,11 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     <!-- 页面视图解析器，前缀，后缀 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/jsp/" p:suffix=".jsp"/>
 
-    <mvc:resources mapping="/static/**" location="/static/" />
+    <mvc:resources mapping="/static/**" location="/static/"/>
 
     <!-- 使用JSON数据格式 -->
-    <bean id="mappingJacsonHttpMessageConvert" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    <bean id="mappingJacsonHttpMessageConvert"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
             <list>
                 <value>application/json;charset=UTF-8</value>

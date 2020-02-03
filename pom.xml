@@ -13,6 +13,7 @@
         <jdk.version>1.7</jdk.version>
         <spring.version>4.3.8.RELEASE</spring.version>
         <junit.version>4.12</junit.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -76,13 +77,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.35</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.oracle/ojdbc14 -->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc14</artifactId>
-            <version>10.2.0.4.0</version>
         </dependency>
 
         <dependency>

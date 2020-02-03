@@ -26,11 +26,11 @@ Spring容器是Spring框架的核心，它使用依赖注入（Dependencies Inje
 
 另外，Spring的容器并不只有一个，恰恰相反，Spring自带了很多的容器实现，但是主要有两个类型的，一种是Bean工厂（由
 org.springframework.beans.factory.BeanFactory接口定义），这是最简单的一种，提供最基本的DI支持。另外一种是应用
-上下文（由org.springframework.context.ApplicationContext接口定义），它基于BeanFactory构建，并提供应用框架级别的
-服务，例如从属性文件（.properties）中解析文本信息，或者应用事件发布给感兴趣的事件监听者。
+上下文（由org.springframework.context.ApplicationContext接口定义），它基于BeanFactory构建，在此基础之上，提供
+应用框架级别的服务，例如从属性文件（.properties）中解析文本信息，或者应用事件发布给感兴趣的事件监听者。
 
 > 据网上一般资讯介绍，虽然可以在Bean工厂和应用上下文中任选一种，但是Bean工厂这种做法对一般应用来说太低级了，因此应用
-上下文对Bean工厂更受程序员欢迎。
+上下文的方式相对于Bean工厂来说更受程序员欢迎。
 
 ### 2.1 应用上下文
 Spring自带了很多的应用上下文，我们先看几个常用的：
@@ -86,7 +86,8 @@ public class HelloProgram {
 }
 ```
 在应用上下文准备就绪之后，我们就可以调用上下文的getBean()方法从Spring容器中获取Bean。  
-在调用getBean()方法时，如果指定了类型，那么返回的类型是确定的，如果没有指定，则需要转型。
+在调用getBean()方法时，如果指定了类型，那么返回的类型是确定的，如果没有指定，则需要转型。  
+如果getBean方法中传的参数（Bean的名称，在注入容器时可以指定，也可以使用默认规则自动生成）不正确，会返回null。
 
 ### 2.2 Bean的生命周期
 在传统的Java应用中，Bean的生命周期是自new实例化以来，它就可以使用了，一旦该Bean不再使用，则由Java自动进行垃圾回收。

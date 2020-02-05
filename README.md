@@ -563,7 +563,7 @@ public class CDPlayer implements MediaPlayer {
 不同之处：
 - 过滤器依赖于servlet，基于函数回调实现，因此可以拦截所有请求，在servlet容器初始化时进行初始化。最常见到的过滤器就是请求和响应内容转码过滤器，也就是在web.xml中配置`org.springframework.web.filter.CharacterEncodingFilter`。
 - 拦截器依赖于SpringMVC框架而不依赖于servlet，是使用反射的机制实现的，因此从理论上讲性能和效率会比过滤器要差一点，特别要注意的是：拦截器只能拦截对Controller的请求，对直接访问静态资源是不能拦截的，不过正因为如此，拦截器可以获取到spring的IoC容器注入进去的Bean对象而过滤器是不可以的。要注意的是：假如你要写一个用户登录身份验证的机制，而恰恰你又使用拦截器实现的，此时，如果静态资源没有权限要求，那么是可以满足需求的，如果静态资源也有权限要求（必须登录才能访问，甚至是必须登录并且具备某个角色才能访问），那么使用拦截器就不行了。
-- 监听器，是`javax.servlet.ServletContextListener`接口的实现类，跟随web应用启动而启动。典型的应用是web应用启动时加载外部的一些不想放入war包或者写入代码的配置。
+- 监听器，是`javax.servlet.ServletContextListener`接口的实现类，跟随web应用启动而启动。典型的应用是web应用启动时加载外部的一些不想放入war包或者写入代码的配置，我也见到过一些人在监听器中获取网卡的地址或者机器硬件识别码，然后作为雪花算法的分布式ID生成的依据，因为这样可以自动地动态处理分布式环境下分布式ID生成时的workerId和centerId的问题，不需要人为的去每台分布式节点上配置（我之前在一些上市公司见到的大型系统有很多个分布式节点，人工管理配置也是十分困难的，此时这种机制就很有用）。
 
 简单地：
 filter距离tomcat最近，interceptor距离controller最近。请求进来之后，会先走filter（此时获取不到SpringWeb应用容器中的内容），然后再走interceptor（此时可以获取到SpringWeb容器中的内容），最后进入Controller的action。

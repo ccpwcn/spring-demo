@@ -335,3 +335,18 @@ public class UserTest {
 ```
 解释：
 spring的applicationContext.xml中需要使用mvc的注解驱动的时候，IDEA通常会自动帮助我们引入命名空间xmlns:mvc="http://www.springframework.org/schema/c"，事实上这是错误的，我们应该使用的是xmlns:mvc="http://www.springframework.org/schema/mvc"，改过来就好了。
+
+如果上述方法还不能解决问题，直接将Spring的配置文件applicationContext.xml的命名空间换成我的这个：
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+```
+亲测可以解决问题。

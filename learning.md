@@ -326,3 +326,12 @@ public class UserTest {
 而且，Spring除了这种XML的方式，还提供了一种Java注解的方式，也就是说不用写XML这种配置文件，而是把想要创建的类上加上一个Spring预定义的注解，再在启动配置中指定我们要创建的类都在哪个包中，然后让Spring自动去扫描和发现这些类并自动创建它们的Bean，自动化程度还是蛮高的。
 
 回顾总结这种方式，它们和传统的做法最大的区别在于：传统的模式是，谁要用User，谁去创建，谁去维护，Spring的模式是，有一个叫做应用上下文的组件，它统一创建和维护各种Bean，然后放到容器中去，谁要用随时来取，随时来用，不需要关心什么时间创建，怎么创建。控制权反转了，这就是**控制反转**（IoC，Inverse of Control）。而Spring对于类之间的依赖关系，会自动的逐级去“追”并自动处理，所有的依赖项都是通过属性注入的方式进行解决，使用将需要的值注入属性（包括依赖项）的这种做法来完成类的完整的创建，就是**依赖注入**（DI，Dependency Injection）。
+
+
+# 常见错误
+
+```text
+通配符的匹配很全面, 但无法找到元素 'mvc:annotation-driven' 的声明
+```
+解释：
+spring的applicationContext.xml中需要使用mvc的注解驱动的时候，IDEA通常会自动帮助我们引入命名空间xmlns:mvc="http://www.springframework.org/schema/c"，事实上这是错误的，我们应该使用的是xmlns:mvc="http://www.springframework.org/schema/mvc"，改过来就好了。

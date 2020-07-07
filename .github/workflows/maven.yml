@@ -1,33 +1,17 @@
-# This workflow will build a Java project with Maven
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+name: Java CI
 
-# 工作流名称
-name: Java CI with Maven
-
-# 监听
-on:
-  # 当向master分支push操作的时候执行操作
-  push:
-    # 分支列表
-    branches: [ master ]
+on: [push]
 
 jobs:
-  # 持续集成
   build:
-    # 指定操作系统（自动生成），在ubuntu上执行下列操作
-    runs-on: ubuntu-latest
-    steps:
-      # 这里使用java11的环境
-      uses: actions/setup-java@v1
-      # 声明步骤名称
-      - name: Set up JDK 8
-        # 把ubuntu中的jdk版本设为8
-        uses: actions/setup-java@v1
-        # 参数赋给上边的use
-        with:
-          java-version: 8
-      - name: Build with Maven
-        # 由GitHub提供的服务器进行构建、打包，单元测试
-        # 如果单元测试中涉及到数据库的操作，将会导致测试执行不能通过
-        run: mvn -B package
 
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml

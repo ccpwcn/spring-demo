@@ -10,8 +10,6 @@ on:
   push:
     # 分支列表
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   # 持续集成
@@ -19,8 +17,8 @@ jobs:
     # 指定操作系统（自动生成），在ubuntu上执行下列操作
     runs-on: ubuntu-latest
     steps:
-      # 将步骤暴露出去为actions，类似于发布出去，让别人调用，这是GitHub提供的actions，只要一执行use就会执行一系列操作，此步是将仓库中的源码提取出来，并不需要关心位置
-      - uses: actions/checkout@v2
+      # 这里使用java11的环境
+      uses: actions/setup-java@v1
       # 声明步骤名称
       - name: Set up JDK 8
         # 把ubuntu中的jdk版本设为8
@@ -31,5 +29,5 @@ jobs:
       - name: Build with Maven
         # 由GitHub提供的服务器进行构建、打包，单元测试
         # 如果单元测试中涉及到数据库的操作，将会导致测试执行不能通过
-        run: mvn -B package --file pom.xml
+        run: mvn -B package
 

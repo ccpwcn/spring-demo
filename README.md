@@ -1,8 +1,7 @@
 # Spring学习笔记
 这是一个Spring框架应用示例工程，里面写了大量的注释，对于我们理解和掌握Spring的一些关键特性是非常有帮助的。
 
-这也是我学习和理解Spring的一个过程，分享出来给有这方面需求的同学快速入门，希望对您有所帮助，如果你觉得好，请给
-一个star，谢谢。
+这也是我学习和理解Spring的一个过程，分享出来给有这方面需求的同学快速入门，希望对您有所帮助，如果你觉得好，请给一个star，谢谢。
 
 ## 1. 工程主要内容
 ### 1.1 框架的Maven引用
@@ -21,13 +20,9 @@
 在基于Spring的应用中，我们的应用对象生存于Spring容器（Container）中。
 
 **什么是Spring容器？**  
-Spring容器是Spring框架的核心，它使用依赖注入（Dependencies Injection）这种方式管理构成应用的组件，而且还能创建
-多个组件之间相互协作的关联关系。这么做的好处是：**这些对象更简单、更易于理解、能更好的被重用、更加容易测试。**
+Spring容器是Spring框架的核心，它使用依赖注入（Dependencies Injection）这种方式管理构成应用的组件，而且还能创建多个组件之间相互协作的关联关系。这么做的好处是：**这些对象更简单、更易于理解、能更好的被重用、更加容易测试。**
 
-另外，Spring的容器并不只有一个，恰恰相反，Spring自带了很多的容器实现，但是主要有两个类型的，一种是Bean工厂（由
-org.springframework.beans.factory.BeanFactory接口定义），这是最简单的一种，提供最基本的DI支持。另外一种是应用
-上下文（由org.springframework.context.ApplicationContext接口定义），它基于BeanFactory构建，在此基础之上，提供
-应用框架级别的服务，例如从属性文件（.properties）中解析文本信息，或者应用事件发布给感兴趣的事件监听者。
+另外，Spring的容器并不只有一个，恰恰相反，Spring自带了很多的容器实现，但是主要有两个类型的，一种是Bean工厂（由org.springframework.beans.factory.BeanFactory接口定义），这是最简单的一种，提供最基本的DI支持。另外一种是应用上下文（由org.springframework.context.ApplicationContext接口定义），它基于BeanFactory构建，在此基础之上，提供应用框架级别的服务，例如从属性文件（.properties）中解析文本信息，或者应用事件发布给感兴趣的事件监听者。
 
 > 据网上一般资讯介绍，虽然可以在Bean工厂和应用上下文中任选一种，但是Bean工厂这种做法对一般应用来说太低级了，因此应用
 上下文的方式相对于Bean工厂来说更受程序员欢迎。
@@ -36,8 +31,7 @@ org.springframework.beans.factory.BeanFactory接口定义），这是最简单�
 Spring自带了很多的应用上下文，我们先看几个常用的：
 - AnnotationConfigApplicationContext，从一个或多个Java配置类中加载Spring应用上下文。
 - AnnotationConfigWebApplicationContext，从一个或多个Java配置类中加载Spring Web应用上下文。
-- ClassPathXmlApplicationContext，从类路径（也就是Java中最常见的CLASSPATH路径）下的一个或多个XML配置文件中加载
-上下文定义，这个上下文定义文件（也就是XML文件）作为类资源文件存在。
+- ClassPathXmlApplicationContext，从类路径（也就是Java中最常见的CLASSPATH路径）下的一个或多个XML配置文件中加载上下文定义，这个上下文定义文件（也就是XML文件）作为类资源文件存在。
 - FileSystemXmlApplicationContext，从文件系统下的一个或多个XML配置文件中加载上下文定义。
 - XmlWebApplicationContext，从Web应用下的一个或多个XML配置文件中加载上下文定义。
 

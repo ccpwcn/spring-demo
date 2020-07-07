@@ -49,8 +49,7 @@ public class HelloProgram {
 }
 ```
 
-使用ClassPathXmlApplicationContext和FileSystemXmlApplicationContext非常相似，区别只在于如何加载应用上下文定义
-文件：
+使用ClassPathXmlApplicationContext和FileSystemXmlApplicationContext非常相似，区别只在于如何加载应用上下文定义文件：
 ```java
 package com.company.example;
 
@@ -63,8 +62,7 @@ public class HelloProgram {
     }
 }
 ```
-这个做法，是在所有类路径（CLASSPATH路径）和JAR文件中查找knights.xml这个文件。当上下文定义好之后，我们就可以调用
-上下文的getBean()方法从Spring容器中获取Bean。我们以ClassPathXmlApplicationContext为例：
+这个做法，是在所有类路径（CLASSPATH路径）和JAR文件中查找knights.xml这个文件。当上下文定义好之后，我们就可以调用上下文的getBean()方法从Spring容器中获取Bean。我们以ClassPathXmlApplicationContext为例：
 ```java
 package com.company.example;
 
@@ -79,15 +77,14 @@ public class HelloProgram {
     }
 }
 ```
-在应用上下文准备就绪之后，我们就可以调用上下文的getBean()方法从Spring容器中获取Bean。  
-在调用getBean()方法时，如果指定了类型，那么返回的类型是确定的，如果没有指定，则需要转型。  
-如果getBean方法中传的参数（Bean的名称，在注入容器时可以指定，也可以使用默认规则自动生成）不正确，会返回null。
+在应用上下文准备就绪之后，我们就可以调用上下文的getBean()方法从Spring容器中获取Bean。在调用getBean()方法时，如果指定了类型，那么返回的类型是确定的，如果没有指定，则需要转型。如果getBean方法中传的参数（Bean的名称，在注入容器时可以指定，也可以使用默认规则自动生成）不正确，会返回null。
 
 ### 2.2 Bean的生命周期
 在传统的Java应用中，Bean的生命周期是自new实例化以来，它就可以使用了，一旦该Bean不再使用，则由Java自动进行垃圾回收。
 
-相比之下，Spring容器的Bean生命周期就显的相对复杂的多。然而，我们要掌握Spring，就必须正确理解Spring Bean的生命周期，
-这非常重要。这是Spring Bean的生命周期图示：
+相比之下，Spring容器的Bean生命周期就显的相对复杂的多。然而，我们要掌握Spring，就必须正确理解Spring Bean的生命周期，这非常重要。
+
+Spring Bean的生命周期图示：
 
 ![https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png](https://raw.githubusercontent.com/ccpwcn/GitRepository/master/resource/spring/Spring%20Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
 

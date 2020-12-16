@@ -24,7 +24,21 @@ Spring容器是Spring框架的核心，它使用依赖注入（Dependencies Inje
 
 最核心的问题：Spring容器究竟是什么？我们用技术的思维这么描述：如果你写了一个类，实现了Spring的`org.springframework.context.ApplicationContext`这个接口，那么你这个类就是一个Spring容器，所以，Spring的容器并不只有一个，恰恰相反，Spring自带了很多的容器实现，但是主要有两个类型的，一种是Bean工厂（由org.springframework.beans.factory.BeanFactory接口定义），这是最简单的一种，提供最基本的DI支持。另外一种是应用上下文（由org.springframework.context.ApplicationContext接口定义），它基于BeanFactory构建，在此基础之上，提供应用框架级别的服务，例如从属性文件（.properties）中解析文本信息，或者应用事件发布给感兴趣的事件监听者。
 > 在一个普通的Java工程中，我们可以通过实例化`ClassPathXmlApplicationContext`或者`FileSystemXmlApplicationContext`来初始化一个Spring容器。在Web工程中，我们一般是通过配置web.xml的方式来初始化Spring容器。
-
+> 重点地：对于Web工程，我们需要配置web.xml来实现Spring容器的初始化，如下所示：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml classpath:services.xml</param-value>
+    </context-param>
+    <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener> 
+</web-app>
+```
+> contextConfigLocation指明Spring去哪里读取配置文件，`org.springframework.web.context.ContextLoaderListener`继承自`org.springframework.web.context.ContextLoader`，而且实现了J2EE API包javaee-api-7.0.jar中的`javax.servlet.ServletContextListener`，所以，它能够做到Web容器（例如Tomcat）启动的时候，去读取指定位置的配置文件从而完成Spring容器的初始化（包括也是最重要的，就是初始化DispatcherServlet和加载Bean），而最重要的DispatcherServlet又是J2EE API包中servlet子包下`javax.servlet.http.HttpServlet`的子类（中间还有其他的，不是直接继承下来的），所以就能够完成整个Spring容器的初始化和项目的加载启动。
 
 > 据网上一般资讯介绍，虽然可以在Bean工厂和应用上下文中任选一种，但是Bean工厂这种做法对一般应用来说太低级了，因此应用
 上下文的方式相对于Bean工厂来说更受程序员欢迎。

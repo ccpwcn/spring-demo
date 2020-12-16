@@ -38,7 +38,25 @@ Spring容器是Spring框架的核心，它使用依赖注入（Dependencies Inje
     </listener> 
 </web-app>
 ```
-> contextConfigLocation指明Spring去哪里读取配置文件，`org.springframework.web.context.ContextLoaderListener`继承自`org.springframework.web.context.ContextLoader`，而且实现了J2EE API包javaee-api-7.0.jar中的`javax.servlet.ServletContextListener`，所以，它能够做到Web容器（例如Tomcat）启动的时候，去读取指定位置的配置文件从而完成Spring容器的初始化（包括也是最重要的，就是初始化DispatcherServlet和加载Bean），而最重要的DispatcherServlet又是J2EE API包中servlet子包下`javax.servlet.http.HttpServlet`的子类（中间还有其他的，不是直接继承下来的），所以就能够完成整个Spring容器的初始化和项目的加载启动。
+> contextConfigLocation指明Spring去哪里读取配置文件，`org.springframework.web.context.ContextLoaderListener`继承自`org.springframework.web.context.ContextLoader`，而且实现了J2EE API包`javaee-api`中的`javax.servlet.ServletContextListener`，所以，它能够做到Web容器（例如Tomcat）启动的时候，去读取指定位置的配置文件从而完成Spring容器的初始化（包括也是最重要的，就是初始化DispatcherServlet和加载Bean），而最重要的DispatcherServlet又是J2EE API包`javaee-api`中servlet子包下`javax.servlet.http.HttpServlet`的子类（中间还有其他的，不是直接继承下来的），所以就能够完成整个Spring容器的初始化和项目的加载启动。
+> J2EE API包`javaee-api`是一个非常重要的包，它实现了J2EE技术规范中的很多内容，包括：
+> 1. JDBC（Java Database Connectivity，访问数据库）
+> 2. JNDI（Java Name and Directory Interface，操作DNS和LDAP及本地文件系统和服务器中的对象等）
+> 3. EJB（Enterprise Java Bean，使用简单Java类简化企业级开发领域的复杂业务逻辑）
+> 4. RMI（Remote Method Invoke，远程方法调用，分布式环境下必备，传统技术中应用最多的就是hessian）
+> 5. IDL/CORBA（Interface Definition Language？不知道干啥的，没见过）
+> 6. JSP（Java Server Page，这个太熟悉了，用来生成和渲染Web页面的）
+> 7. Servlet（这个更熟悉吧，建立Web服务器端程序接受客户端请求实现业务逻辑的）
+> 8. XML（Extensible Markup Language，单纯的Java代码解决服务器领域的开发在某些情况下有些困难，我们需要XML这种表述能力很强的标记语言辅助一下）
+> 9. JMS（Java Message Service，消息通信）
+> 10. JTA（Java Transaction Architecture，事务处理、监控等）
+> 11. JTS（Java Transaction Service，也是事务监控相关的，而且好像还和IDL/CORBA有关，我也不熟悉）
+> 12. JavaMail（存取邮件服务器的，这个还是挺常见的，邮件收发的规范和标准早已有之，J2EE领域实现了这一套规范，就可以自建邮件服务器，也可以访问其他邮件服务器了）
+> 13. JAF（Java Bean Activation Framework，好像和JavaMail一起协作工作的，我也不熟悉）
+
+与javaee-api齐名的还有一个名叫`javaee-web-api`的家伙，这两者大体相同，但是还有些区别的，javaee-web-api不支持JMS，而javaee-api中的xml解析库更大（这难道是写基于J2EE行业规范的Spring项目的时候要写很多XML的始作俑者？）。J2EE这一套技术规范之下，包含的东西还是很多的。但是：
+  - 这东西是一些所谓的专家拍脑袋想出来的，根本就没在实践场景中大规模调研过，也不是实践中研究出来的，所以极其难用，但是为什么我们在这里还是提到了它呢？那是因为这个东西太难用，所以后来出来了Java Web，Java Web技术开发起来就容易多了，但是Java Web也不是凭空捏造出来的，而是对J2EE的继承和发展，所以Java Web中也用到了很多J2EE中的技术，比如JSP、Servlet、JNDI等。
+  - J2EE只是一套技术规范，没有具体实现，所以就有很多它的实现了，经过这几十年的发展，J2EE本身的问题暴露越来越严重，在它的基础上发展起来了Spring已经一家独大，成为了事实上的标准，所以可以这么理解：J2EE是先祖，没有先祖，哪里来的我们？所以我们身上有各种先祖的影子（比如长的基本上差不多一样，都有四肢、眼睛、鼻子、耳朵等），但是我们和先祖差别还是很大的，我们很先进，很发达，很文明，我们和先祖不是一回事。 
 
 > 据网上一般资讯介绍，虽然可以在Bean工厂和应用上下文中任选一种，但是Bean工厂这种做法对一般应用来说太低级了，因此应用
 上下文的方式相对于Bean工厂来说更受程序员欢迎。

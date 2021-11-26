@@ -22,9 +22,13 @@
 **什么是Spring容器？**  
 Spring容器是Spring框架的核心，它使用依赖注入（Dependencies Injection）这种方式管理构成应用的组件，而且还能创建多个组件之间相互协作的关联关系。这么做的好处是：**这些对象更简单、更易于理解、能更好的被重用、更加容易测试。**
 
-最核心的问题：Spring容器究竟是什么？我们用技术的思维这么描述：如果你写了一个类，实现了Spring的`org.springframework.context.ApplicationContext`这个接口，那么你这个类就是一个Spring容器，所以，Spring的容器并不只有一个，恰恰相反，Spring自带了很多的容器实现，但是主要有两个类型的，一种是Bean工厂（由org.springframework.beans.factory.BeanFactory接口定义），这是最简单的一种，提供最基本的DI支持。另外一种是应用上下文（由org.springframework.context.ApplicationContext接口定义），它基于BeanFactory构建，在此基础之上，提供应用框架级别的服务，例如从属性文件（.properties）中解析文本信息，或者应用事件发布给感兴趣的事件监听者。
+最核心的问题：Spring容器究竟是什么？我们用技术的思维这么描述：如果你写了一个类，实现了Spring的`org.springframework.context.ApplicationContext`这个接口，那么你这个类就是一个Spring容器，所以，Spring的容器并不只有一个，恰恰相反，Spring自带了很多的容器实现，但是主要有两个类型的：
+- 一种是Bean工厂（由org.springframework.beans.factory.BeanFactory接口定义），这是最简单的一种，提供最基本的DI支持
+- 另外一种是应用上下文（由org.springframework.context.ApplicationContext接口定义），它基于BeanFactory构建，在此基础之上，提供应用框架级别的服务，例如从属性文件（.properties）中解析文本信息，或者应用事件发布给感兴趣的事件监听者。
+
 > 在一个普通的Java工程中，我们可以通过实例化`ClassPathXmlApplicationContext`或者`FileSystemXmlApplicationContext`来初始化一个Spring容器。在Web工程中，我们一般是通过配置web.xml的方式来初始化Spring容器。
-> 重点地：对于Web工程，我们需要配置web.xml来实现Spring容器的初始化，如下所示：
+
+**重点：** 对于Web工程，我们需要配置web.xml来实现Spring容器的初始化，如下所示：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
@@ -40,15 +44,15 @@ Spring容器是Spring框架的核心，它使用依赖注入（Dependencies Inje
 ```
 > contextConfigLocation指明Spring去哪里读取配置文件，`org.springframework.web.context.ContextLoaderListener`继承自`org.springframework.web.context.ContextLoader`，而且实现了J2EE API包`javaee-api`中的`javax.servlet.ServletContextListener`，所以，它能够做到Web容器（例如Tomcat）启动的时候，去读取指定位置的配置文件从而完成Spring容器的初始化（包括也是最重要的，就是初始化DispatcherServlet和加载Bean），而最重要的DispatcherServlet又是J2EE API包`javaee-api`中servlet子包下`javax.servlet.http.HttpServlet`的子类（中间还有其他的，不是直接继承下来的），所以就能够完成整个Spring容器的初始化和项目的加载启动。
 > J2EE API包`javaee-api`是一个非常重要的包，它实现了J2EE技术规范中的很多内容，包括：
-> 1. JDBC（Java Database Connectivity，访问数据库）
+> 1. JDBC（Java Database Connectivity，访问数据库），用的非常多
 > 2. JNDI（Java Name and Directory Interface，操作DNS和LDAP及本地文件系统和服务器中的对象等）
-> 3. EJB（Enterprise Java Bean，使用简单Java类简化企业级开发领域的复杂业务逻辑）
-> 4. RMI（Remote Method Invoke，远程方法调用，分布式环境下必备，传统技术中应用最多的就是hessian）
-> 5. IDL/CORBA（Interface Definition Language？不知道干啥的，没见过）
-> 6. JSP（Java Server Page，这个太熟悉了，用来生成和渲染Web页面的）
-> 7. Servlet（这个更熟悉吧，建立Web服务器端程序接受客户端请求实现业务逻辑的）
+> 3. EJB（Enterprise Java Bean，企业Java Bean），使用简单Java类简化企业级开发领域的复杂业务逻辑），现在用的不太多了
+> 4. RMI（Remote Method Invoke，远程方法调用），分布式环境下必备，传统技术中应用最多的就是hessian，现在也有用RPC的，那是另外一种技术了
+> 5. IDL/CORBA，Interface Definition Language？不知道干啥的，没见过）
+> 6. JSP（Java Server Page，这个太熟悉了，用来生成和渲染Web页面的，当然，现在用的也不多了，都前后端分离了）
+> 7. Servlet（这个更熟悉吧，建立Web服务器端程序、监听端口接受客户端请求实现业务逻辑的）
 > 8. XML（Extensible Markup Language，单纯的Java代码解决服务器领域的开发在某些情况下有些困难，我们需要XML这种表述能力很强的标记语言辅助一下）
-> 9. JMS（Java Message Service，消息通信）
+> 9. JMS（Java Message Service，消息通信，一些特定领域用的也挺多的）
 > 10. JTA（Java Transaction Architecture，事务处理、监控等）
 > 11. JTS（Java Transaction Service，也是事务监控相关的，而且好像还和IDL/CORBA有关，我也不熟悉）
 > 12. JavaMail（存取邮件服务器的，这个还是挺常见的，邮件收发的规范和标准早已有之，J2EE领域实现了这一套规范，就可以自建邮件服务器，也可以访问其他邮件服务器了）

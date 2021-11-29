@@ -237,6 +237,14 @@ Grails的BeanBuilder，借助它能够通过Groovy配置Spring应用
 8. Spring 4.0包含了Spring RestTemplate的一个新的异步实现，它会立即返回并且允许在操作完成之后执行回调
 9. 添加了多项对JEE规范的支持，包括JMS 2.0、JTA 1.2、JPA 2.1和Bean Validationi 1.1
 
+### 4.4 Spring 5.0版本特性
+1. 大量应用JDK8的新特性，因此最低要求JDK8才能使用，也支持JDK9，当然了，JDK9不是LTS版本，用的人也不多
+2. 在 API 级别上，Spring 5 兼容 Java EE 8 技术，满足对 Servlet 4.0、Bean Validation 2.0 和全新的 JSON Binding API 的需求。对 Java EE API 的最低要求为 V7，该版本引入了针对 Servlet、JPA 和 Bean Validation API 的次要版本
+3. 使用spring-jcl自带了通用的日志封装，但支持可重写
+4. 支持jackson2.9、支持JSON绑定API、支持protobuf3
+5. 支持Reactor3.1 Flux和Mono，Flux是一种被称为反应式的Spring Web MVC编程技术，它是基于异步非阻塞的
+6. 测试相关功能增强，支持JUnit5，支持通过SpringRunner在Sring TestContext框架中支持TestNG, Junit5
+
 好，让我们从Spring 4.x开始吧！！！
 
 ## 5. Spring之Bean的装配（Wiring）

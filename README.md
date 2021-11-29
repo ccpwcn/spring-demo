@@ -244,8 +244,9 @@ Grails的BeanBuilder，借助它能够通过Groovy配置Spring应用
 4. 支持jackson2.9、支持JSON绑定API、支持protobuf3
 5. 支持Reactor3.1 Flux和Mono，Flux是一种被称为反应式的Spring Web MVC编程技术，它是基于异步非阻塞的
 6. 测试相关功能增强，支持JUnit5，支持通过SpringRunner在Sring TestContext框架中支持TestNG, Junit5
+7. 支持HTTP/2
 
-好，让我们从Spring 4.x开始吧！！！
+虽然Spring5很好，但是改动很大，尤其是异步编程模型，很多人还不会，用的也不多，而且众多的老项目也不会迁移到Spring5，所以让我们基于Spring 4.x继续学习吧！！！
 
 ## 5. Spring之Bean的装配（Wiring）
 ### 5.1 Spring配置的可选方案

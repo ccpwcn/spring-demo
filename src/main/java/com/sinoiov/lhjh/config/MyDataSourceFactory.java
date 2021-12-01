@@ -1,11 +1,11 @@
 package com.sinoiov.lhjh.config;
 
+import com.mysql.cj.jdbc.MysqlDataSource;
+
+import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Properties;
-import javax.sql.DataSource;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 /**
  * 数据源

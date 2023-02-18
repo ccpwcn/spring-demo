@@ -10,8 +10,13 @@
     <packaging>war</packaging>
 
     <properties>
+<<<<<<< HEAD
         <jdk.version>1.11</jdk.version>
         <spring.version>4.3.8.RELEASE</spring.version>
+=======
+        <jdk.version>1.8</jdk.version>
+        <spring.version>6.0.0</spring.version>
+>>>>>>> 91c63e2ad26d81afc842b3c715670e0f9e54b1bf
         <junit.version>4.13.1</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -95,14 +100,22 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+<<<<<<< HEAD
             <version>1.2.9</version>
+=======
+            <version>1.2.11</version>
+>>>>>>> 91c63e2ad26d81afc842b3c715670e0f9e54b1bf
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
+<<<<<<< HEAD
             <version>1.2.9</version>
+=======
+            <version>1.2.11</version>
+>>>>>>> 91c63e2ad26d81afc842b3c715670e0f9e54b1bf
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.logback-extensions/logback-ext-spring -->
@@ -124,14 +137,18 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.12.1</version>
+            <version>2.13.2</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+<<<<<<< HEAD
             <version>2.12.7.1</version>
+=======
+            <version>2.13.4.1</version>
+>>>>>>> 91c63e2ad26d81afc842b3c715670e0f9e54b1bf
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->

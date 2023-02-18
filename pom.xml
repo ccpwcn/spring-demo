@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <jdk.version>1.11</jdk.version>
+        <jdk.version>11</jdk.version>
         <spring.version>5.3.25</spring.version>
         <junit.version>4.13.1</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
